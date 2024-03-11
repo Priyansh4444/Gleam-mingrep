@@ -1,6 +1,7 @@
 import simplifile
 import gleam/string
 import gleam/list
+import gleam/io
 
 pub opaque type Config {
   Config(filepath: String, query: String, ignore_case: Bool)
@@ -34,6 +35,32 @@ pub fn search_case_insensitive(contents: String, query: String) -> List(String) 
     |> string.contains(query)
   })
 }
+
 // pub fn search() -> Nil {
 //     todo
 // }
+
+pub fn complete_task(con: Config) -> Nil {
+  let file_contents = get_file(con.filepath)
+  case file_contents {
+    Ok(val) -> {
+      let contents = [1, 2, 3]
+      case con.ignore_case {
+        True -> {
+          let contents = search_case_insensitive(val, con.query)
+          io.debug(contents)
+        }
+        False -> {
+          let contents = search(val, con.query)
+          io.debug(contents)
+        }
+      }
+      
+      Nil
+    }
+    Error(err) -> {
+        io.debug(err)
+        Nil
+    }
+  }
+}
