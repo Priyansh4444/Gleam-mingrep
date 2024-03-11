@@ -4,11 +4,21 @@ import lib
 
 pub fn main() {
   io.println("Hello from minigrep!")
-  case argv.load().arguments {
-    [_] -> io.println("Not enough arguements!")
-    [x, y] -> io.println("There are two flags!")
-    [x, y, z] -> io.println("Just enough flags :D")
-    [x, y, z, _] -> io.println("There are two or more flags!")
-    _ -> io.println("Please enter a file name")
+  let x = case argv.load().arguments {
+    [_] -> Error("Not enough arguements!")
+    [x, y] -> lib.build_config(x, y, False)
+    [x, y, z] -> lib.build_config(x, y, case z{
+      "True" -> True
+      "False" -> False
+      _ -> False 
+    })
+    [x, y, z, _] -> lib.build_config(x, y, case z{
+      "True" -> True
+      "False" -> False
+      _ -> False 
+    })
+    _ -> Error("Please enter a file name")
   }
+  io.debug(x)
 }
+
