@@ -1,7 +1,6 @@
 import gleam/io
 import argv
 import lib
-import gleam/result
 
 pub fn main() {
   io.println("Hello from minigrep!")
@@ -26,6 +25,9 @@ pub fn main() {
   Ok(val) -> {
     lib.complete_task(val)
   }
-  Error(err) -> Nil
+  Error(err) -> {
+    io.debug(err)
+    Nil
+  }
  })
 }

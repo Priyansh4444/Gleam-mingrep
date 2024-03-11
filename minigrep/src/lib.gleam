@@ -44,7 +44,6 @@ pub fn complete_task(con: Config) -> Nil {
   let file_contents = get_file(con.filepath)
   case file_contents {
     Ok(val) -> {
-      let contents = [1, 2, 3]
       case con.ignore_case {
         True -> {
           let contents = search_case_insensitive(val, con.query)
