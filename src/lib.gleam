@@ -36,10 +36,6 @@ pub fn search_case_insensitive(contents: String, query: String) -> List(String) 
   })
 }
 
-// pub fn search() -> Nil {
-//     todo
-// }
-
 pub fn complete_task(con: Config) -> Nil {
   let file_contents = get_file(con.filepath)
   case file_contents {
