@@ -22,19 +22,18 @@ pub fn get_file(filepath: String) -> Result(String, simplifile.FileError) {
 pub fn search(contents: String, query: String) -> List(String) {
   contents
   |> string.split(on: "\n")
-  |> list.filter(fn(line) { string.contains(line, query) })
+  |> list.filter(string.contains(_, query))
 }
 
 pub fn search_case_insensitive(contents: String, query: String) -> List(String) {
-  let query = string.lowercase(query)
   contents
-  |> string.split(on: "\n")
-  |> list.filter(fn(line) {
-    line
-    |> string.lowercase()
-    |> string.contains(query)
-  })
+  |> string.lowercase
+  |> search(
+    query
+    |> string.lowercase,
+  )
 }
+
 
 pub fn complete_task(con: Config) -> Nil {
   let file_contents = get_file(con.filepath)
